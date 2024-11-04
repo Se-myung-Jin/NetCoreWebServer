@@ -6,7 +6,7 @@ namespace NetCoreWebServer
     {
         private readonly RequestDelegate next;
 
-        private readonly Dictionary<string, IRoute> routeDic = new Dictionary<string, IRoute>()
+        private readonly Dictionary<string, IRoute> routeDic = new (StringComparer.OrdinalIgnoreCase)
         {
             { "/Test", new Test() },
         };
