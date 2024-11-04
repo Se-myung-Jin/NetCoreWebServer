@@ -7,6 +7,8 @@ namespace NetCoreWebServer
     {
         public static async Task Main(string[] args)
         {
+            Service.Initialize();
+
             await CreateWebHostBuilder(args).Build().RunAsync();
         }
 
