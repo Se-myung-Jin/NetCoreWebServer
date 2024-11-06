@@ -8,6 +8,7 @@ namespace NetCoreWebServer
 
         private readonly Dictionary<string, IRoute> routeDic = new (StringComparer.OrdinalIgnoreCase)
         {
+            { "/Gate", new Gate() },
             { "/Test", new Test() },
         };
 
