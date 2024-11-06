@@ -32,15 +32,14 @@ namespace NetCoreWebServer
             {
                 if (type.IsInterface) continue;
 
-                if (type.GetInterfaces().Contains(typeof(IService)) == false) return;
+                if (type.GetInterfaces().Contains(typeof(IService)) == false) continue;
 
-                var instance = (IService)Activator.CreateInstance(type);
-                if (instance == null)
+                var typeInfo = type.GetTypeInfo();
+                if (typeInfo.GetCustomAttribute<ProtocolHandlerAttribute>() != null)
                 {
-                    throw new InvalidProtocolException($"Service not created. type: {type.Name}");
+                    var instance = (IService)Activator.CreateInstance(type);
+                    ProtocolHandler.Add(instance.ProtocolId, instance);
                 }
-
-                ProtocolHandler.Add(instance.ProtocolId, instance);
             }
         }
 
