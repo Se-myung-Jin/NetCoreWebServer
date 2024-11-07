@@ -12,8 +12,6 @@ namespace NetCoreWebServer
             var req = (CheckReq)protocol;
             var res = new CheckRes();
 
-            Console.WriteLine($"request protocol: {req.Name}, {req.Number}");
-
             return res;
         }
     }
