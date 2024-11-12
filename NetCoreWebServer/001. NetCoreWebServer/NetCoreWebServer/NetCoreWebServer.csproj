@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="MessagePack" Version="2.5.187" />
+    <PackageReference Include="MySqlConnector" Version="2.3.7" />
     <PackageReference Include="NLog" Version="5.3.4" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.16" />
   </ItemGroup>
