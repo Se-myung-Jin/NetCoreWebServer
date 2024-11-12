@@ -14,6 +14,7 @@ namespace NetCoreWebServer
             Config.Load("NetCoreWebServer.config");
 
             Service.Initialize();
+            Redis.Initialize();
 
             logger.Info("NetCoreWebServer Starting");
             await CreateWebHostBuilder(args).Build().RunAsync();
