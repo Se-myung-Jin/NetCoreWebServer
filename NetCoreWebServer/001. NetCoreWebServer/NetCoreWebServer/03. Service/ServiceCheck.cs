@@ -12,6 +12,8 @@ namespace NetCoreWebServer
             var req = (CheckReq)protocol;
             var res = new CheckRes();
 
+            res.IsOk = true;
+
             return res;
         }
     }
