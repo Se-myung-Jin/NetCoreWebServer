@@ -43,7 +43,7 @@ namespace NetCoreWebServer
 
         public static TableServerUrl Find(string name, string version)
         {
-            if (urlByVersionDic.TryGetValue(name, out var url)) return url;
+            if (urlByVersionDic.TryGetValue($"{name}:{version}", out var url)) return url;
 
             return null;
         }

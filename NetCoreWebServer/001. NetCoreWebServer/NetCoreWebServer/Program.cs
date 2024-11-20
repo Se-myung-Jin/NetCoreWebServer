@@ -15,6 +15,8 @@ namespace NetCoreWebServer
             Service.Initialize();
             Redis.Initialize();
 
+            await RefreshManager.Instance.InitializeAsync(typeof(RefreshableMaintenanceAttribute));
+
             logger.Info("NetCoreWebServer Starting");
             await CreateWebHostBuilder(args).Build().RunAsync();
         }
