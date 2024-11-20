@@ -10,6 +10,7 @@ namespace NetCoreWebServer
         {
             { "/Gate", new Gate() },
             { "/Test", new Test() },
+            { "/Refresh", new Refresh() },
         };
 
         public Route(RequestDelegate next)

@@ -38,7 +38,7 @@ namespace NetCoreWebServer
             await RefreshAllAsync(false);
         }
 
-        private async Task RefreshAllAsync(bool enforced)
+        public async Task RefreshAllAsync(bool enforced)
         {
             foreach (var key in typesToRefresh.Keys)
             {
