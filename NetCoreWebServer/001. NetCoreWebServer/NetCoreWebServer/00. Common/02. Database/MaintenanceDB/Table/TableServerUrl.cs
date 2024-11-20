@@ -34,6 +34,7 @@ namespace NetCoreWebServer
 
                 foreach (var item in list)
                 {
+                    logger.Warn($"item: {item.Seq}, {item.Name}, {item.Version}, {item.Url}");
                     newUrlByVersionDic.Add($"{item.Name}:{item.Version}", item);
                 }
             }
@@ -43,7 +44,10 @@ namespace NetCoreWebServer
 
         public static TableServerUrl Find(string name, string version)
         {
-            if (urlByVersionDic.TryGetValue($"{name}:{version}", out var url)) return url;
+            if (urlByVersionDic.TryGetValue($"{name}:{version}", out var url) == false)
+            {
+                logger.Error($"TableServerUrl not existed. name: {name}, version: {version}");
+            }
 
             return null;
         }
