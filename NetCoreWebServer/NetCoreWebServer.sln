@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebServer", "001. NetCoreWebServer\NetCoreWebServer\NetCoreWebServer.csproj", "{CBF91958-9E65-4AAC-A397-41D65256BE9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceServer", "001. MaintenanceServer\MaintenanceServer\MaintenanceServer.csproj", "{CBF91958-9E65-4AAC-A397-41D65256BE9A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001. NetCoreWebServer", "001. NetCoreWebServer", "{48A9EC57-DDF9-4513-B3BC-11F895A9B63D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001. MaintenanceServer", "001. MaintenanceServer", "{48A9EC57-DDF9-4513-B3BC-11F895A9B63D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "000. TestClient", "000. TestClient", "{3B24CC6D-D190-46FC-B8E4-F45E5784DDBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "000. TestClient\TestClient\TestClient.csproj", "{10AD7465-90D6-437C-9D91-81E253008C8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "000. TestClient\TestClient\TestClient.csproj", "{10AD7465-90D6-437C-9D91-81E253008C8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
