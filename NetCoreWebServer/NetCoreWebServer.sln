@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "002. GameServer", "002. Gam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "002. GameServer\GameServer\GameServer.csproj", "{5509E883-4CCA-447B-97DC-9ECB71E0F54C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "003. RankServer", "003. RankServer", "{95F7D728-5F9C-4829-993E-038DFC59AC38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RankServer", "003. RankServer\RankServer\RankServer.csproj", "{59214F7A-1320-4672-BC1A-FB85C75A2C22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{5509E883-4CCA-447B-97DC-9ECB71E0F54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5509E883-4CCA-447B-97DC-9ECB71E0F54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5509E883-4CCA-447B-97DC-9ECB71E0F54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59214F7A-1320-4672-BC1A-FB85C75A2C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59214F7A-1320-4672-BC1A-FB85C75A2C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59214F7A-1320-4672-BC1A-FB85C75A2C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59214F7A-1320-4672-BC1A-FB85C75A2C22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{CBF91958-9E65-4AAC-A397-41D65256BE9A} = {48A9EC57-DDF9-4513-B3BC-11F895A9B63D}
 		{10AD7465-90D6-437C-9D91-81E253008C8F} = {3B24CC6D-D190-46FC-B8E4-F45E5784DDBE}
 		{5509E883-4CCA-447B-97DC-9ECB71E0F54C} = {75333182-9A42-4591-95AA-590611E20746}
+		{59214F7A-1320-4672-BC1A-FB85C75A2C22} = {95F7D728-5F9C-4829-993E-038DFC59AC38}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {746FCD36-795E-4D98-B199-C1353CAF0136}
