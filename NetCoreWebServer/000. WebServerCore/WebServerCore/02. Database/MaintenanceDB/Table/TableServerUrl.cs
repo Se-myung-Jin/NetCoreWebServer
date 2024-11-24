@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using MySqlConnector;
 
-namespace MaintenanceServer
+namespace WebServerCore
 {
     [RefreshableMaintenance]
     public class TableServerUrl
@@ -28,7 +28,7 @@ namespace MaintenanceServer
             var newUrlByVersionDic = new Dictionary<string, TableServerUrl>();
 
             var sql = "select `seq`, `name`, `version`, `url` from `serverUrl`;";
-            using (var conn = new MySqlConnection(Config.Instance.MaintenanceDB))
+            using (var conn = new MySqlConnection(ServerCoreConfig.Instance.MaintenanceDB))
             {
                 var list = await conn.QueryAsync<TableServerUrl>(sql);
 

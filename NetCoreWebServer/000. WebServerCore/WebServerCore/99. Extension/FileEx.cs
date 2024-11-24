@@ -1,4 +1,4 @@
-﻿namespace MaintenanceServer
+﻿namespace WebServerCore
 {
     public class FileEx
     {

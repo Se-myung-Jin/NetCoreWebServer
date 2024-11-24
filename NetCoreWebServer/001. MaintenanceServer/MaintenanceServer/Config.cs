@@ -1,4 +1,6 @@
-﻿namespace MaintenanceServer
+﻿using WebServerCore;
+
+namespace MaintenanceServer
 {
     public class Config : Singleton<Config>
     {
@@ -9,7 +11,8 @@
         public static void Load(string path)
         {
             Instance = JsonAppConfig.Load<Config>(path);
-        }
 
+            ServerCoreConfig.Instance.MaintenanceDB = Instance.MaintenanceDB;
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MaintenanceServer
+﻿using WebServerCore;
+
+namespace MaintenanceServer
 {
     public class Refresh : IRoute
     {

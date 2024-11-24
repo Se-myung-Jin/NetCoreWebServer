@@ -1,4 +1,4 @@
-﻿namespace MaintenanceServer
+﻿namespace WebServerCore
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class RefreshableAttribute : Attribute

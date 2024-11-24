@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace MaintenanceServer
+namespace WebServerCore
 {
     public class RefreshManager
     {

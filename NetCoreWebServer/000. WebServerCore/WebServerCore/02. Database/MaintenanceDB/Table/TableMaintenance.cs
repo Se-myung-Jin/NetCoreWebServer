@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using MySqlConnector;
 
-namespace MaintenanceServer
+namespace WebServerCore
 {
     [RefreshableMaintenance]
     public class TableMaintenance
@@ -30,7 +30,7 @@ namespace MaintenanceServer
             var dic = new Dictionary<string, TableMaintenance>();
 
             var sql = "select `seq`, `name`, `version`, `startTime`, `endTime`, `enable` from `maintenance`;";
-            await using (var conn = new MySqlConnection(Config.Instance.MaintenanceDB))
+            await using (var conn = new MySqlConnection(ServerCoreConfig.Instance.MaintenanceDB))
             {
                 var list = await conn.QueryAsync<TableMaintenance>(sql);
                 foreach (var item in list)

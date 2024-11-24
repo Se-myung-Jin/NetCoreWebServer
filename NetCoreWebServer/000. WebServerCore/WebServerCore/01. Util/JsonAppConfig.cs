@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace MaintenanceServer
+namespace WebServerCore
 {
     public class JsonAppConfig
     {
