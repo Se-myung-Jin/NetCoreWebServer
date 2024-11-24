@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore;
+using WebServerCore;
 
 namespace GameServer
 {
     public class Program
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static async Task Main(string[] args)
         {
+            ServerAgent.Initialize("GameServer");
+
+            logger.Info("GameServer Starting");
             await CreateWebHostBuilder(args).Build().RunAsync();
         }
 

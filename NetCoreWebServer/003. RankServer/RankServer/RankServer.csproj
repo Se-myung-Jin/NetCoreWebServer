@@ -13,5 +13,9 @@
     <PackageReference Include="NLog" Version="5.3.4" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.16" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\..\000. WebServerCore\WebServerCore\WebServerCore.csproj" />
+  </ItemGroup>
 
 </Project>
