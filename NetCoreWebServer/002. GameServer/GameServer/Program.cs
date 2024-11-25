@@ -14,6 +14,7 @@ namespace GameServer
             Config.Load("GameServer.config");
 
             Redis.Initialize();
+            Service.Initialize();
 
             await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
 
