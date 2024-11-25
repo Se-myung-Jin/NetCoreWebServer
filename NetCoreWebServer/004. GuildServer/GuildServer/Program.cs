@@ -14,6 +14,7 @@ namespace GuildServer
             Config.Load("GuildServer.config");
 
             Redis.Initialize();
+            Service.Initialize();
 
             await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
 
