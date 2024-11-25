@@ -8,7 +8,8 @@ namespace RankServer
 
         private readonly Dictionary<string, IRoute> routeDic = new (StringComparer.OrdinalIgnoreCase)
         {
-            
+            { "/Gate", new Gate() },
+            { "/Refresh", new Refresh() },
         };
 
         public Route(RequestDelegate next)

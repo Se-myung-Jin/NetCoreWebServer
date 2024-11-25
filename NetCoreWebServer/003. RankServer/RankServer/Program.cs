@@ -14,6 +14,7 @@ namespace RankServer
             Config.Load("RankServer.config");
 
             Redis.Initialize();
+            Service.Initialize();
 
             await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
 
