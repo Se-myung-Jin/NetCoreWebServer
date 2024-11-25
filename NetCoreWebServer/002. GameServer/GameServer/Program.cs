@@ -11,6 +11,12 @@ namespace GameServer
         {
             ServerAgent.Initialize("GameServer");
 
+            Config.Load("GameServer.config");
+
+            Redis.Initialize();
+
+            await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
+
             logger.Info("GameServer Starting");
             await CreateWebHostBuilder(args).Build().RunAsync();
         }
@@ -18,6 +24,6 @@ namespace GameServer
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://*:8000");
+                .UseUrls(Config.Instance.ServerUrl);
     }
 }

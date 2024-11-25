@@ -11,6 +11,12 @@ namespace RankServer
         {
             ServerAgent.Initialize("RankServer");
 
+            Config.Load("RankServer.config");
+
+            Redis.Initialize();
+
+            await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
+
             logger.Info("RankServer Starting");
             await CreateWebHostBuilder(args).Build().RunAsync();
         }
@@ -18,6 +24,6 @@ namespace RankServer
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://*:9000");
+                .UseUrls(Config.Instance.ServerUrl);
     }
 }

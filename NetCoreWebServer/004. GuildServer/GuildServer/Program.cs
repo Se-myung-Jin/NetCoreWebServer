@@ -11,6 +11,12 @@ namespace GuildServer
         {
             ServerAgent.Initialize("GuildServer");
 
+            Config.Load("GuildServer.config");
+
+            Redis.Initialize();
+
+            await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
+
             logger.Info("GuildServer Starting");
             await CreateWebHostBuilder(args).Build().RunAsync();
         }
@@ -18,6 +24,6 @@ namespace GuildServer
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://*:10000");
+                .UseUrls(Config.Instance.ServerUrl);
     }
 }
