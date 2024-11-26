@@ -1,6 +1,6 @@
 namespace WebServerCore
 {
-    public class TaskTimer
+    public class JobTimer
     {
         private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         
@@ -10,28 +10,28 @@ namespace WebServerCore
         public TimeSpan Period { get; } = TimeSpan.MaxValue;
         private CancellationTokenSource token;
 
-        public TaskTimer(Func<Task> funcion, int dueTime, int period)
+        public JobTimer(Func<Task> funcion, int dueTime, int period)
         {
             Function = funcion;
             DueTime = TimeSpan.FromMilliseconds(dueTime);
             Period = TimeSpan.FromMilliseconds(period);
         }
         
-        public TaskTimer(Func<Task> function, TimeSpan dueTime, TimeSpan period)
+        public JobTimer(Func<Task> function, TimeSpan dueTime, TimeSpan period)
         {
             Function = function;
             DueTime = dueTime;
             Period = period;
         }
         
-        public TaskTimer(Action action, int dueTime, int period)
+        public JobTimer(Action action, int dueTime, int period)
         {
             Action = action;
             DueTime = TimeSpan.FromMilliseconds(dueTime);
             Period = TimeSpan.FromMilliseconds(period);
         }
         
-        public TaskTimer(Action action, TimeSpan dueTime, TimeSpan period)
+        public JobTimer(Action action, TimeSpan dueTime, TimeSpan period)
         {
             Action = action;
             DueTime = dueTime;
