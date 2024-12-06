@@ -7,8 +7,8 @@ namespace MaintenanceServer
     public class Service
     {
         private static bool isInitialized = false;
-
-        private static readonly Dictionary<ProtocolId, IService> ProtocolHandler = new Dictionary<ProtocolId, IService>();
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static Dictionary<ProtocolId, IService> ProtocolHandler = new Dictionary<ProtocolId, IService>();
 
         public static void Initialize()
         {
@@ -39,6 +39,7 @@ namespace MaintenanceServer
                 if (typeInfo.GetCustomAttribute<ProtocolHandlerAttribute>() != null)
                 {
                     var instance = (IService)Activator.CreateInstance(type);
+
                     ProtocolHandler.Add(instance.ProtocolId, instance);
                 }
             }
@@ -48,7 +49,7 @@ namespace MaintenanceServer
         {
             if (ProtocolHandler.TryGetValue(protocol.ProtocolId, out var handler) == false)
             {
-
+                logger.Error($"Unknown Protocol: {protocol.ProtocolId}");
             }
 
             try
@@ -57,8 +58,10 @@ namespace MaintenanceServer
             }
             catch (Exception ex)
             {
-                return null;
+                logger.Error(ex);
             }
+
+            return new ErrorRes { Result = Result.UnknownProtocol };
         }
     }
 }

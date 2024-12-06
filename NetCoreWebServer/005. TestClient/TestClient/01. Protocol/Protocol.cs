@@ -4,29 +4,13 @@ namespace WebProtocol
 {
     public enum ProtocolId
     {
+        Error = -1,
         None = 0,
-        Check = 1,
+        CheckMaintenance = 1,
     }
 
     [MessagePackObject]
-    public class CheckReq : Protocol
-    {
-        [Key(BaseKey + 0)] public string Name { get; set; }
-        [Key(BaseKey + 1)] public int Number { get; set; }
-
-        public CheckReq() : base(ProtocolId.Check) { }
-    }
-
-    [MessagePackObject]
-    public class CheckRes : ProtocolRes
-    {
-        [Key(BaseKey + 0)] public bool IsOk { get; set; }
-
-        public CheckRes() : base(ProtocolId.Check) { }
-    }
-
-    [MessagePackObject]
-    [Union((int)ProtocolId.Check, typeof(CheckReq))]
+    [Union((int)ProtocolId.CheckMaintenance, typeof(CheckMaintenanceReq))]
     public abstract class Protocol
     {
         [Key(0)] public ProtocolId ProtocolId { get; set; }
@@ -55,15 +39,40 @@ namespace WebProtocol
     }
 
     [MessagePackObject]
-    [Union((int)ProtocolId.Check, typeof(CheckRes))]
+    [Union((int)ProtocolId.CheckMaintenance, typeof(CheckMaintenanceRes))]
+    [Union((int)ProtocolId.Error, typeof(ErrorRes))]
     public abstract class ProtocolRes
     {
         [Key(0)] public ProtocolId ProtocolId { get; set; }
-        [Key(1)] public Result Result { get; set; }
+        [Key(1)] public Result Result { get; set; } = Result.Ok;
 
         protected const int BaseKey = 2;
 
         public ProtocolRes() { }
         public ProtocolRes(ProtocolId protocolId) { ProtocolId = protocolId; }
+    }
+
+    [MessagePackObject]
+    public class CheckMaintenanceReq : Protocol
+    {
+        [Key(BaseKey + 0)] public string ServerName { get; set; }
+        [Key(BaseKey + 1)] public string Version { get; set; }
+
+        public CheckMaintenanceReq() : base(ProtocolId.CheckMaintenance) { }
+    }
+
+    [MessagePackObject]
+    public class CheckMaintenanceRes : ProtocolRes
+    {
+        [Key(BaseKey + 0)] public string ServerUrl { get; set; }
+
+        public CheckMaintenanceRes() : base(ProtocolId.CheckMaintenance) { }
+    }
+
+    [MessagePackObject]
+    public class ErrorRes : ProtocolRes
+    {
+
+        public ErrorRes() : base(ProtocolId.Error) { }
     }
 }

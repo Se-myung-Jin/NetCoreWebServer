@@ -49,7 +49,7 @@ namespace WebServerCore
                 logger.Error($"TableServerUrl not existed. name: {name}, version: {version}");
             }
 
-            return null;
+            return url;
         }
     }
 }
