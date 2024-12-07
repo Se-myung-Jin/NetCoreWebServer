@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using WebServerCore;
 
 namespace GameServer
@@ -12,7 +13,10 @@ namespace GameServer
             logger.Error("UnhandledExceptionHandler Call");
             
             Exception exception = (Exception)args.ExceptionObject;
-            logger.Error(exception);
+            if (exception != null)
+            {
+                logger.Error(exception);
+            }
             
             Environment.Exit(-9999);
         }
@@ -35,11 +39,53 @@ namespace GameServer
             await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
 
             logger.Info("GameServer Starting");
-            await CreateWebHostBuilder(args).Build().RunAsync();
+
+            Console.CancelKeyPress += (_, args) =>
+            {
+                args.Cancel = true;
+                logger.Error("Received CancelKeyPress");
+            };
+
+            System.Runtime.Loader.AssemblyLoadContext.Default.Unloading += (ctx) =>
+            {
+                logger.Error($"Received AssemblyLoadContext.Default.Unloading");
+            };
+
+            AppDomain.CurrentDomain.ProcessExit += (_, _) =>
+            {
+                logger.Error("Received ProcessExit");
+            };
+
+            try
+            {
+                await CreateWebHostBuilder(args).Build().RunAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
+
+            logger.Error("Application Close");
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, options) =>
+                {
+                    foreach (var s in options.Sources)
+                    {
+                        if (s is FileConfigurationSource)
+                        {
+                            logger.Debug($"ReloadOnChange: {((FileConfigurationSource)s).Path}");
+                            ((FileConfigurationSource)s).ReloadOnChange = false;
+                        }
+                    }
+                })
+                .UseKestrel((hostingContext, options) =>
+                {
+                    options.Configure(hostingContext.Configuration.GetSection("Kestrel"), reloadOnChange: false);
+                    options.Limits.MinRequestBodyDataRate = new MinDataRate(Config.BytesPerSecond, TimeSpan.FromSeconds(Config.GracePeriodSecond));
+                })
                 .UseStartup<Startup>()
                 .UseUrls(Config.Instance.ServerUrl);
     }

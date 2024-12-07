@@ -7,10 +7,12 @@ namespace WebProtocol
         Error = -1,
         None = 0,
         CheckMaintenance = 1,
+        AllServerUrl = 2,
     }
 
     [MessagePackObject]
     [Union((int)ProtocolId.CheckMaintenance, typeof(CheckMaintenanceReq))]
+    [Union((int)ProtocolId.AllServerUrl, typeof(AllServerUrlReq))]
     public abstract class Protocol
     {
         [Key(0)] public ProtocolId ProtocolId { get; set; }
@@ -41,6 +43,7 @@ namespace WebProtocol
     [MessagePackObject]
     [Union((int)ProtocolId.CheckMaintenance, typeof(CheckMaintenanceRes))]
     [Union((int)ProtocolId.Error, typeof(ErrorRes))]
+    [Union((int)ProtocolId.AllServerUrl, typeof(AllServerUrlRes))]
     public abstract class ProtocolRes
     {
         [Key(0)] public ProtocolId ProtocolId { get; set; }
@@ -67,6 +70,22 @@ namespace WebProtocol
         [Key(BaseKey + 0)] public string ServerUrl { get; set; }
 
         public CheckMaintenanceRes() : base(ProtocolId.CheckMaintenance) { }
+    }
+
+    [MessagePackObject]
+    public class AllServerUrlReq : Protocol
+    {
+
+        public AllServerUrlReq() : base(ProtocolId.AllServerUrl) { }
+    }
+
+    [MessagePackObject]
+    public class AllServerUrlRes : ProtocolRes
+    {
+        [Key(BaseKey + 0)] public string RankServerUrl { get; set; }
+        [Key(BaseKey + 1)] public string GuildServerUrl { get; set; }
+
+        public AllServerUrlRes() : base(ProtocolId.AllServerUrl) { }
     }
 
     [MessagePackObject]
