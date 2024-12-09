@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using WebServerCore;
 
@@ -7,6 +8,7 @@ namespace GameServer
     public class Program
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static IWebHost webHost;
 
         static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
@@ -44,21 +46,25 @@ namespace GameServer
             {
                 args.Cancel = true;
                 logger.Error("Received CancelKeyPress");
+                webHost?.Dispose();
             };
 
             System.Runtime.Loader.AssemblyLoadContext.Default.Unloading += (ctx) =>
             {
                 logger.Error($"Received AssemblyLoadContext.Default.Unloading");
+                webHost?.Dispose();
             };
 
             AppDomain.CurrentDomain.ProcessExit += (_, _) =>
             {
                 logger.Error("Received ProcessExit");
+                webHost?.Dispose();
             };
 
             try
             {
-                await CreateWebHostBuilder(args).Build().RunAsync();
+                webHost = CreateWebHostBuilder(args).Build();
+                await webHost.RunAsync();
             }
             catch (Exception ex)
             {
