@@ -2,7 +2,7 @@
 
 namespace RankServer
 {
-    public class Redis
+    public partial class Redis
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
