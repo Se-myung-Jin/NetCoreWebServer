@@ -8,6 +8,7 @@ namespace GameServer
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private static IWebHost webHost;
+        private static JobScheduler scheduler = new JobScheduler();
 
         static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
@@ -38,6 +39,8 @@ namespace GameServer
             Service.Initialize();
 
             await RefreshManager.Instance.InitializeAsync(typeof(RefreshableAttribute));
+
+            RegisterJobScheduler();
 
             logger.Info("GameServer Starting");
 
@@ -93,5 +96,11 @@ namespace GameServer
                 })
                 .UseStartup<Startup>()
                 .UseUrls(Config.Instance.ServerUrl);
+
+        private static void RegisterJobScheduler()
+        {
+            scheduler.RegisterJob(() => logger.Debug($"Action 1 executed at {DateTime.Now}"), 3000);
+            scheduler.RegisterJob(() => logger.Debug($"Action 2 executed at {DateTime.Now}"), 7000);
+        }
     }
 }
