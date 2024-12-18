@@ -6,6 +6,8 @@ namespace RankServer
 {
     public class Gate : IRoute
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        
         public async Task Invoke(HttpContext context)
         {
             var httpRequest = context.Request;
@@ -16,25 +18,22 @@ namespace RankServer
 
             try
             {
-                var length = (int)httpRequest.ContentLength;
-                byte[] buffer = ArrayPool<byte>.Shared.Rent(length);
+                var length = httpRequest.ContentLength ?? 0;
+                byte[] inBuffer = new byte[length];
 
-                var requestBody = httpRequest.Body;
-                var stream = new MemoryStream(buffer);
-                var reader = new BinaryReader(stream);
-
-                await requestBody.CopyToAsync(stream);
-                stream.Position = 0;
-
-                request = MessagePackSerializer.Deserialize<ProtocolReq>(stream);
-                protocolId = request.Protocol.ProtocolId;
+                using (var stream = httpRequest.Body)
+                {
+                    request = MessagePackSerializer.Deserialize<ProtocolReq>(stream);
+                    protocolId = request.Protocol.ProtocolId;
+                }
+                logger.Debug(() => $"Something Received : {protocolId}");
 
                 var response = await Service.ProcessAsync(context, request.Protocol);
                 await SendResponseAsync(httpResponse, response);
             }
             catch (Exception ex)
             {
-
+                logger.Error(ex);
             }
         }
 
